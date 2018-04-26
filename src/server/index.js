@@ -39,6 +39,12 @@ app.get("*", (req, res, next) => {
           <title>W Combinator</title>
           <link rel="stylesheet" href="/css/main.css">
           <script src="/bundle.js" defer></script>
+          <!-- Compiled and minified CSS -->
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+      
+          <!-- Compiled and minified JavaScript -->
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+          <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">       
           <script>window.__initialData__ = ${serialize(initialData)}</script>
         </head>
 

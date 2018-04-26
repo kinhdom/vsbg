@@ -1,4 +1,3 @@
-import News from "./news/News";
 import Home from "./components/Home/Home";
 import Detail from "./components/Detail/Detail";
 const routes = [
