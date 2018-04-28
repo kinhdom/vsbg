@@ -1,20 +1,2 @@
-* {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-}
-
-body {
-  padding: 0 15px;
-  font-family: sans-serif;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-p {
-  margin: 12px 0;
-}
 
 /*# sourceMappingURL=main.css.map*/

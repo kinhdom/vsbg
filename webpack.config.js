@@ -50,7 +50,8 @@ const browserConfig = {
       banner: "__isBrowser__ = true;",
       raw: true,
       include: /\.js$/
-    })
+    }),
+    new webpack.IgnorePlugin(/vertx/),
   ]
 };
 

@@ -9,6 +9,8 @@ class Navbar extends Component {
                     <ul id="nav-mobile" className="right">
                         <li><a href="/">HOME</a></li>
                         <li><a href="/detail/3">Detail</a></li>
+                        <li><a href="/top/1173636692750000">Top</a></li>
+                        <li><a href="/group/1173636692750000">VSBG</a></li>
                     </ul>
                 </div>
             </nav>

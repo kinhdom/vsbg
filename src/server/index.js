@@ -1,4 +1,5 @@
 import express from "express";
+const bodyParser = require('body-parser');
 import cors from "cors";
 import React from "react";
 import { renderToString } from "react-dom/server";
@@ -7,19 +8,23 @@ import serialize from "serialize-javascript";
 import routes from "../shared/routes";
 import App from "../shared/App";
 import sourceMapSupport from "source-map-support";
+import api from './routes/api';
 
 if (process.env.NODE_ENV === "development") {
   sourceMapSupport.install();
 }
 
+// API
+
 const app = express();
+app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(cors());
 app.use(express.static("public"));
+app.use('/api', api);
 
 app.get("*", (req, res, next) => {
   const activeRoute = routes.find(route => matchPath(req.url, route));
-
   const requestInitialData =
     activeRoute.component.requestInitialData && activeRoute.component.requestInitialData();
 
@@ -47,7 +52,6 @@ app.get("*", (req, res, next) => {
           <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">       
           <script>window.__initialData__ = ${serialize(initialData)}</script>
         </head>
-
         <body>
           <div id="root">${markup}</div>
         </body>
