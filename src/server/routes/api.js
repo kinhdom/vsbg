@@ -2,8 +2,8 @@ const request = require('request');
 const express = require('express');
 const router = express.Router();
 const mongojs = require('mongojs');
-const config = require('./config')
-const func = require('./function')
+const config = require('./config');
+const func = require('./function');
 const db = require('./db');
 
 router.get('/groups', (req, res) => {
@@ -53,12 +53,18 @@ router.get('/:group_id/newpost/:page', (req, res) => {
         }
     })
 })
+router.get('/detail/:post_id', (req, res) => {
+    let post_id = req.params.post_id
+    db.vsbg.find({ post_id: post_id },(err,docs)=>{
+        res.json(docs)
+    })
+})
 router.get('/:group_id/addnew', (req, res) => {
     let group_id = req.params.group_id
     func.getNewestPost(group_id, (doc) => {
         if (doc[0]) {
             let newestPostTime = doc[0].created_time
-            let query = 'https://graph.facebook.com/' + config.group_id + '/feed?format=json&fields=' + config.fieldsFeed + '&access_token=' + config.access_token + '&limit=100';
+            let query = 'https://graph.facebook.com/' + group_id + '/feed?format=json&fields=' + config.fieldsFeed + '&access_token=' + config.access_token + '&limit=100';
             request(query, (err, response, body) => {
                 let bodyJson = JSON.parse(body)
                 if (bodyJson) {
@@ -76,9 +82,10 @@ router.get('/:group_id/addnew', (req, res) => {
                 }
 
             })
-        }else{
-            res.json({message:'Crawl...'})
+        } else {
+            res.json({ message: 'Crawl...' })
             console.log('Crawl...')
+            func.crawl(group_id, config.access_token)
             // Crawl
         }
     })
@@ -104,7 +111,7 @@ router.get('/convert', function (req, res) {
 })
 router.get('/:group_id/crawl', function (req, res) {
     let group_id = req.params.group_id;
-    let query = 'https://graph.facebook.com/' + config.group_id + '/feed?format=json&fields=' + config.fieldsFeed + '&access_token=' + config.access_token + '&limit=25';
+    let query = 'https://graph.facebook.com/' + group_id + '/feed?format=json&fields=' + config.fieldsFeed + '&access_token=' + config.access_token + '&limit=25';
     func.fetchData(query, (data) => {
         if (data) {
             if (data.data) {
@@ -131,10 +138,11 @@ router.get('/info', (req, res) => {
     })
     res.send('ok')
 })
-router.get('/test/:id/:yd', (req, res) => {
-    let id = req.params.id
-    console.log(id)
-    res.json({ a: 3 })
+router.get('/delete/:post_id', (req, res) => {
+    let post_id = req.params.post_id
+    db.vsbg.remove({ post_id: post_id }, (err, docs) => {
+        res.json(docs)
+    })
 })
 router.get('/:group_id/top/:page', (req, res) => {
     let group_id = req.params.group_id;
@@ -153,6 +161,7 @@ router.get('/:group_id/top/:page', (req, res) => {
 router.get('/hot', (req, res) => {
 
 })
+
 
 
 module.exports = router;

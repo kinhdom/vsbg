@@ -77,7 +77,8 @@ class NewPost extends Component {
     }
     componentDidMount() {
         console.log('Add new post')
-        axios.get('/api/149083252119510/addnew')
+        let group_id = this.props.match.params.group_id
+        axios.get('/api/' + group_id + '/addnew')
             .then(res => {
                 console.log(res)
             })

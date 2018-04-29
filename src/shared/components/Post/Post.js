@@ -19,8 +19,11 @@ class Post extends Component {
                                             <span className="new badge blue" data-badge-caption="likes">{this.props.likes}</span>
                                         </h4>
                                     </a>
-                                    <Link to={"/detail/" + this.props.uid} className="waves-effect waves-light btn" >
-                                        detail
+                                    <Link to={"/api/delete/" + this.props.post_id} className="waves-effect waves-light btn" >
+                                        delete
+                                    </Link>
+                                    <Link to={"/api/detail/" + this.props.post_id} className="waves-effect waves-light btn" >
+                                        Detail
                                     </Link>
 
                                 </li>

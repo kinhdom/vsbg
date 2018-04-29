@@ -12109,130 +12109,23 @@ var Post = function (_Component) {
                                     ),
                                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                         __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Link */],
-                                        { to: "/detail/" + this.props.uid, className: 'waves-effect waves-light btn', __source: {
+                                        { to: "/api/delete/" + this.props.post_id, className: 'waves-effect waves-light btn', __source: {
                                                 fileName: _jsxFileName,
                                                 lineNumber: 22
                                             },
                                             __self: this
                                         },
-                                        'detail'
-                                    )
-                                ),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'li',
-                                    { className: 'collection-item', __source: {
-                                            fileName: _jsxFileName,
-                                            lineNumber: 27
-                                        },
-                                        __self: this
-                                    },
+                                        'delete'
+                                    ),
                                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'div',
-                                        {
-                                            __source: {
+                                        __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Link */],
+                                        { to: "/api/detail/" + this.props.post_id, className: 'waves-effect waves-light btn', __source: {
                                                 fileName: _jsxFileName,
-                                                lineNumber: 27
+                                                lineNumber: 25
                                             },
                                             __self: this
                                         },
-                                        'Alvin  ',
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                            'a',
-                                            { href: '#!', className: 'secondary-content', __source: {
-                                                    fileName: _jsxFileName,
-                                                    lineNumber: 27
-                                                },
-                                                __self: this
-                                            },
-                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                                'i',
-                                                { className: 'material-icons', __source: {
-                                                        fileName: _jsxFileName,
-                                                        lineNumber: 27
-                                                    },
-                                                    __self: this
-                                                },
-                                                'send'
-                                            )
-                                        )
-                                    )
-                                ),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'li',
-                                    { className: 'collection-item', __source: {
-                                            fileName: _jsxFileName,
-                                            lineNumber: 28
-                                        },
-                                        __self: this
-                                    },
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'div',
-                                        {
-                                            __source: {
-                                                fileName: _jsxFileName,
-                                                lineNumber: 28
-                                            },
-                                            __self: this
-                                        },
-                                        'Alvin',
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                            'a',
-                                            { href: '#!', className: 'secondary-content', __source: {
-                                                    fileName: _jsxFileName,
-                                                    lineNumber: 28
-                                                },
-                                                __self: this
-                                            },
-                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                                'i',
-                                                { className: 'material-icons', __source: {
-                                                        fileName: _jsxFileName,
-                                                        lineNumber: 28
-                                                    },
-                                                    __self: this
-                                                },
-                                                'send'
-                                            )
-                                        )
-                                    )
-                                ),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'li',
-                                    { className: 'collection-item', __source: {
-                                            fileName: _jsxFileName,
-                                            lineNumber: 29
-                                        },
-                                        __self: this
-                                    },
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'div',
-                                        {
-                                            __source: {
-                                                fileName: _jsxFileName,
-                                                lineNumber: 29
-                                            },
-                                            __self: this
-                                        },
-                                        'Alvin',
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                            'a',
-                                            { href: '#!', className: 'secondary-content', __source: {
-                                                    fileName: _jsxFileName,
-                                                    lineNumber: 29
-                                                },
-                                                __self: this
-                                            },
-                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                                'i',
-                                                { className: 'material-icons', __source: {
-                                                        fileName: _jsxFileName,
-                                                        lineNumber: 29
-                                                    },
-                                                    __self: this
-                                                },
-                                                'send'
-                                            )
-                                        )
+                                        'Detail'
                                     )
                                 ),
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -12252,7 +12145,7 @@ var Post = function (_Component) {
                                             },
                                             __self: this
                                         },
-                                        'Alvin',
+                                        'Alvin  ',
                                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                             'a',
                                             { href: '#!', className: 'secondary-content', __source: {
@@ -12266,6 +12159,123 @@ var Post = function (_Component) {
                                                 { className: 'material-icons', __source: {
                                                         fileName: _jsxFileName,
                                                         lineNumber: 30
+                                                    },
+                                                    __self: this
+                                                },
+                                                'send'
+                                            )
+                                        )
+                                    )
+                                ),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'li',
+                                    { className: 'collection-item', __source: {
+                                            fileName: _jsxFileName,
+                                            lineNumber: 31
+                                        },
+                                        __self: this
+                                    },
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'div',
+                                        {
+                                            __source: {
+                                                fileName: _jsxFileName,
+                                                lineNumber: 31
+                                            },
+                                            __self: this
+                                        },
+                                        'Alvin',
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                            'a',
+                                            { href: '#!', className: 'secondary-content', __source: {
+                                                    fileName: _jsxFileName,
+                                                    lineNumber: 31
+                                                },
+                                                __self: this
+                                            },
+                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                                'i',
+                                                { className: 'material-icons', __source: {
+                                                        fileName: _jsxFileName,
+                                                        lineNumber: 31
+                                                    },
+                                                    __self: this
+                                                },
+                                                'send'
+                                            )
+                                        )
+                                    )
+                                ),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'li',
+                                    { className: 'collection-item', __source: {
+                                            fileName: _jsxFileName,
+                                            lineNumber: 32
+                                        },
+                                        __self: this
+                                    },
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'div',
+                                        {
+                                            __source: {
+                                                fileName: _jsxFileName,
+                                                lineNumber: 32
+                                            },
+                                            __self: this
+                                        },
+                                        'Alvin',
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                            'a',
+                                            { href: '#!', className: 'secondary-content', __source: {
+                                                    fileName: _jsxFileName,
+                                                    lineNumber: 32
+                                                },
+                                                __self: this
+                                            },
+                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                                'i',
+                                                { className: 'material-icons', __source: {
+                                                        fileName: _jsxFileName,
+                                                        lineNumber: 32
+                                                    },
+                                                    __self: this
+                                                },
+                                                'send'
+                                            )
+                                        )
+                                    )
+                                ),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'li',
+                                    { className: 'collection-item', __source: {
+                                            fileName: _jsxFileName,
+                                            lineNumber: 33
+                                        },
+                                        __self: this
+                                    },
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'div',
+                                        {
+                                            __source: {
+                                                fileName: _jsxFileName,
+                                                lineNumber: 33
+                                            },
+                                            __self: this
+                                        },
+                                        'Alvin',
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                            'a',
+                                            { href: '#!', className: 'secondary-content', __source: {
+                                                    fileName: _jsxFileName,
+                                                    lineNumber: 33
+                                                },
+                                                __self: this
+                                            },
+                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                                'i',
+                                                { className: 'material-icons', __source: {
+                                                        fileName: _jsxFileName,
+                                                        lineNumber: 33
                                                     },
                                                     __self: this
                                                 },
@@ -27020,7 +27030,8 @@ var NewPost = function (_Component) {
         key: 'componentDidMount',
         value: function componentDidMount() {
             console.log('Add new post');
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/149083252119510/addnew').then(function (res) {
+            var group_id = this.props.match.params.group_id;
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/' + group_id + '/addnew').then(function (res) {
                 console.log(res);
             });
         }
