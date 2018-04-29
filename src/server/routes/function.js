@@ -37,60 +37,39 @@ const func = {
 
     },
     addPostToDatabase: (post, group_id) => {
+        post.group_id = group_id
         if (post.likes) {
             post.likes = post.likes.count
         }
-        db.vsbg.insert(post)
+        db.vsbg.insert({
+            group_id: group_id,
+            post_id: post.id,
+            post_message: post.message,
+            created_time: post.created_time,
+            updated_time: post.updated_time,
+            full_picture: post.full_picture,
+            from_name: post.from.name,
+            from_id: post.from.id
+        })
         console.log('Added ...' + post.id)
     },
-    findAndModifyImage: (id, newImage) => {
+    findAndModifyImage: (full_picture, newImage) => {
         db.vsbg.findAndModify({
-            query: { _id: mongojs.ObjectId(id) },
+            query: { full_picture: full_picture },
             update: { $set: { image: newImage } },
             new: true
+        }, () => {
+            console.log('Done')
         })
     },
-    uploadToWordpress: (full_picture, callback) => {
-        let headers = {
-            'origin': 'https://public-api.wordpress.com',
-            'accept-encoding': 'gzip, deflate, br',
-            'accept-language': 'vi,en-US;q=0.9,en;q=0.8',
-            'authorization': 'X-WPCOOKIE cdf7d09ca41a2efdb027a1821f54953b:1:https://wordpress.com',
-            'content-type': 'multipart/form-data; boundary=----WebKitFormBoundaryrSrafR72h5NIz9Ye',
-            'accept': '*/*',
-            'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/65.0.3325.181 Chrome/65.0.3325.181 Safari/537.36',
-            'referer': 'https://public-api.wordpress.com/wp-admin/rest-proxy/?v=2.0',
-            'authority': 'public-api.wordpress.com',
-            'Cookie': 'cookie: wp_api_sec=daylaitai%7C1619505255%7C01orySEYKsQ4299dNrrqYQOEtRvaz3l475fustOacs7%7C022b21b6f4579d26b8de13009eaa2bc5fda083591f8b5a434993aa81bf92f61c; _ga=GA1.2.1810458970.1524897240; _gid=GA1.2.138631153.1524897240; _wpndash=d168feb3118f8c9b82442e0b; G_AUTHUSER_H=1; G_ENABLED_IDPS=google; wordpress_logged_in=daylaitai%7C1619505255%7C01orySEYKsQ4299dNrrqYQOEtRvaz3l475fustOacs7%7Cdc39c9634ae2db799802a8681c5d554fa192d656fc9a17db758198de59e3b061; wordpress_test_cookie=WP+Cookie+check; wordpress_eli=1; tk_tc=OcQl4%2FM80HsD28SC; _gat=1; wpc_wpc=account=daylaitai&avatar=https%3A%2F%2F2.gravatar.com%2Favatar%2F510f30f27c021f55850dc684e400235a%3Fs%3D25%26amp%3Bd%3Dhttps%253A%252F%252Fs2.wp.com%252Fwp-content%252Fmu-plugins%252Fhighlander-comments%252Fimages%252Fwplogo.png&email=daylaitai%40gmail.com&link=http%3A%2F%2Ffood403494205.wordpress.com&name=day%20lai&uid=137147815&access_token=4f350e056b6b085cab9431980a940c989efb7cea'
-        };
-
-
-
-        let data = { media_urls: [full_picture] }
-        let dataString = JSON.stringify(data).toString()
-        let uploadImageEndPoint = 'https://public-api.wordpress.com/rest/v1.1/sites/' + config.blog_id + '/media/new?http_envelope=1';
-        let options = {
-            url: uploadImageEndPoint,
-            method: 'POST',
-            headers: headers,
-            body: dataString
-        };
-        request(options, (error, response, body) => {
-            if (!error && response.statusCode == 200) {
-                callback(true)
-            } else {
-                callback(false)
-            }
-        });
-    },
-    generateLinkImageWordpress(full_picture) {
-        let indexOfJpg = full_picture.indexOf(".jpg")
-        let arr_temp = full_picture.slice(0, indexOfJpg).split("/")
-        let image_name = arr_temp[arr_temp.length - 1]
-        let year = new Date().getFullYear().toString()
-        let month = (new Date().getMonth() + 1).toString()
-        let newImage = 'https://' + config.blog_name + '.files.wordpress.com/' + year + '/0' + month + '/' + image_name + '.jpg?w=450'
-        return newImage
+    uploadToImgur: (full_picture, callback) => {
+        imgur.uploadUrl(full_picture)
+            .then(function (json) {
+                callback(json.data.link)
+            })
+            .catch(function (err) {
+                callback(0)
+            });
     },
     getInfo: (uid, callback) => {
         let query = 'https://graph.facebook.com/' + uid + '?format=json&fields=' + config.fieldsPeople + '&access_token=' + config.access_token + '&limit=25';
