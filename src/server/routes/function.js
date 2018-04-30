@@ -37,9 +37,10 @@ const func = {
 
     },
     addPostToDatabase: (post, group_id) => {
-        post.group_id = group_id
         if (post.likes) {
-            post.likes = post.likes.count
+            likes = post.likes.count
+        } else {
+            likes = '0'
         }
         db.vsbg.insert({
             group_id: group_id,
@@ -49,7 +50,8 @@ const func = {
             updated_time: post.updated_time,
             full_picture: post.full_picture,
             from_name: post.from.name,
-            from_id: post.from.id
+            from_id: post.from.id,
+            likes: likes
         })
         console.log('Added ...' + post.id)
     },

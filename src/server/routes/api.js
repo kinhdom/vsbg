@@ -55,13 +55,14 @@ router.get('/:group_id/newpost/:page', (req, res) => {
 })
 router.get('/detail/:post_id', (req, res) => {
     let post_id = req.params.post_id
-    db.vsbg.find({ post_id: post_id },(err,docs)=>{
+    db.vsbg.find({ post_id: post_id }, (err, docs) => {
         res.json(docs)
     })
 })
 router.get('/:group_id/addnew', (req, res) => {
     let group_id = req.params.group_id
-    
+    func.crawl(group_id, config.access_token)
+    res.json({ message: 'Updated' })
 
 })
 router.get('/convert', function (req, res) {

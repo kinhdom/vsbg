@@ -26894,6 +26894,7 @@ var NewPost = function (_Component) {
         var _this = _possibleConstructorReturn(this, (NewPost.__proto__ || Object.getPrototypeOf(NewPost)).call(this, props));
 
         _this.state = {
+            group_id: null,
             currentPage: 1,
             arrPosts: [],
             isFetchData: false
@@ -26910,7 +26911,7 @@ var NewPost = function (_Component) {
                 isFetchData: true,
                 currentPage: this.state.currentPage + 1
             });
-            this.fetchData(this.state.currentPage + 1).then(function (res) {
+            this.fetchData(this.state.group_id, this.state.currentPage + 1).then(function (res) {
                 _this2.setState({
                     isFetchData: false
                 });
@@ -26922,7 +26923,7 @@ var NewPost = function (_Component) {
             var _this3 = this;
 
             this.setState({ isFetchData: true });
-            console.log('HOME Fetching ' + page);
+            console.log('Newpost Fetching ' + page);
             return __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('https://vsbgnew.herokuapp.com/api/' + group_id + '/newpost/' + page).then(function (res) {
                 if (res.status === 200 && res.data.message) {
                     _this3.setState({
@@ -26945,7 +26946,7 @@ var NewPost = function (_Component) {
                 {
                     __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 43
+                        lineNumber: 44
                     },
                     __self: this
                 },
@@ -26953,13 +26954,13 @@ var NewPost = function (_Component) {
                     'div',
                     { className: 'progress', __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 45
+                            lineNumber: 46
                         },
                         __self: this
                     },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'indeterminate', __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 46
+                            lineNumber: 47
                         },
                         __self: this
                     })
@@ -26968,7 +26969,7 @@ var NewPost = function (_Component) {
                     'div',
                     { className: 'container', __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 51
+                            lineNumber: 52
                         },
                         __self: this
                     },
@@ -26983,7 +26984,7 @@ var NewPost = function (_Component) {
                             likes: post.likes,
                             __source: {
                                 fileName: _jsxFileName,
-                                lineNumber: 54
+                                lineNumber: 55
                             },
                             __self: _this4
                         });
@@ -26993,7 +26994,7 @@ var NewPost = function (_Component) {
                     'div',
                     { className: ' fixed-action-btn row center-align', onClick: this.clickLoadMore.bind(this), __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 66
+                            lineNumber: 67
                         },
                         __self: this
                     },
@@ -27001,7 +27002,7 @@ var NewPost = function (_Component) {
                         'a',
                         { className: 'btn-floating btn-large waves-effect waves-light red', __source: {
                                 fileName: _jsxFileName,
-                                lineNumber: 67
+                                lineNumber: 68
                             },
                             __self: this
                         },
@@ -27009,7 +27010,7 @@ var NewPost = function (_Component) {
                             'i',
                             { className: 'material-icons', __source: {
                                     fileName: _jsxFileName,
-                                    lineNumber: 67
+                                    lineNumber: 68
                                 },
                                 __self: this
                             },
@@ -27024,12 +27025,15 @@ var NewPost = function (_Component) {
         value: function componentWillMount() {
             console.log('will mount');
             var group_id = this.props.match.params.group_id;
+            this.setState({
+                group_id: group_id
+            });
             this.fetchData(group_id, 1);
         }
     }, {
         key: 'componentDidMount',
         value: function componentDidMount() {
-            console.log('Add new post');
+
             var group_id = this.props.match.params.group_id;
             __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/' + group_id + '/addnew').then(function (res) {
                 console.log(res);
@@ -28008,6 +28012,7 @@ var TopPost = function (_Component) {
         var _this = _possibleConstructorReturn(this, (TopPost.__proto__ || Object.getPrototypeOf(TopPost)).call(this, props));
 
         _this.state = {
+            group_id: null,
             arrPosts: []
         };
         return _this;
@@ -28023,7 +28028,7 @@ var TopPost = function (_Component) {
                 {
                     __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 13
+                        lineNumber: 14
                     },
                     __self: this
                 },
@@ -28031,7 +28036,7 @@ var TopPost = function (_Component) {
                     'div',
                     { className: 'container', __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 14
+                            lineNumber: 15
                         },
                         __self: this
                     },
@@ -28042,11 +28047,11 @@ var TopPost = function (_Component) {
                             name: post.from_name,
                             uid: post.from_id,
                             image: post.image ? post.image : post.full_picture,
-                            caption: post.post_message.slice(0, 250),
+                            caption: post.post_message,
                             likes: post.likes,
                             __source: {
                                 fileName: _jsxFileName,
-                                lineNumber: 17
+                                lineNumber: 18
                             },
                             __self: _this2
                         });
@@ -28073,6 +28078,7 @@ var TopPost = function (_Component) {
         value: function componentDidMount() {
             console.log('Top');
             var group_id = this.props.match.params.group_id;
+            this.setState({ group_id: group_id });
             this.fetchData(group_id, 1);
         }
     }]);

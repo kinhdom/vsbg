@@ -5,6 +5,7 @@ class TopPost extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            group_id: null,
             arrPosts: []
         }
     }
@@ -20,7 +21,7 @@ class TopPost extends Component {
                                 name={post.from_name}
                                 uid={post.from_id}
                                 image={post.image ? post.image : post.full_picture}
-                                caption={post.post_message.slice(0, 250)}
+                                caption={post.post_message}
                                 likes={post.likes}
                             />
                         )
@@ -43,6 +44,7 @@ class TopPost extends Component {
     componentDidMount() {
         console.log('Top')
         let group_id = this.props.match.params.group_id
+        this.setState({ group_id: group_id })
         this.fetchData(group_id, 1)
     }
 }
