@@ -26923,7 +26923,7 @@ var NewPost = function (_Component) {
 
             this.setState({ isFetchData: true });
             console.log('HOME Fetching ' + page);
-            return __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('http://localhost:3000/api/' + group_id + '/newpost/' + page).then(function (res) {
+            return __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('https://vsbgnew.herokuapp.com/api/' + group_id + '/newpost/' + page).then(function (res) {
                 if (res.status === 200 && res.data.message) {
                     _this3.setState({
                         arrPosts: _this3.state.arrPosts.concat(res.data.message),
@@ -28060,7 +28060,7 @@ var TopPost = function (_Component) {
             var _this3 = this;
 
             console.log('Fetching ' + page);
-            return __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('http://localhost:3000/api/' + group_id + '/top/' + page).then(function (res) {
+            return __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('https://vsbgnew.herokuapp.com/api/' + group_id + '/top/' + page).then(function (res) {
                 if (res.status === 200 && res.data.message) {
                     _this3.setState({
                         arrPosts: _this3.state.arrPosts.concat(res.data.message)
@@ -28183,7 +28183,7 @@ var listGroup = function (_Component) {
 
             this.setState({ isFetchData: true });
             console.log('Get groups ...');
-            __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get('http://localhost:3000/api/mygroups').then(function (res) {
+            __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get('https://vsbgnew.herokuapp.com/api/mygroups').then(function (res) {
                 _this3.setState({
                     arrGroups: res.data,
                     isFetchData: false

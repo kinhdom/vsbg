@@ -31,7 +31,7 @@ class TopPost extends Component {
     }
     fetchData(group_id, page) {
         console.log('Fetching ' + page)
-        return axios.get('http://localhost:3000/api/' + group_id + '/top/' + page)
+        return axios.get('https://vsbgnew.herokuapp.com/api/' + group_id + '/top/' + page)
             .then(res => {
                 if (res.status === 200 && res.data.message) {
                     this.setState({

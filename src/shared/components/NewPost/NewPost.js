@@ -25,7 +25,7 @@ class NewPost extends Component {
     fetchData(group_id, page) {
         this.setState({ isFetchData: true })
         console.log('HOME Fetching ' + page)
-        return axios.get('http://localhost:3000/api/' + group_id + '/newpost/' + page)
+        return axios.get('https://vsbgnew.herokuapp.com/api/' + group_id + '/newpost/' + page)
             .then(res => {
                 if (res.status === 200 && res.data.message) {
                     this.setState({
@@ -77,11 +77,11 @@ class NewPost extends Component {
     }
     componentDidMount() {
         console.log('Add new post')
-        let group_id = this.props.match.params.group_id
-        axios.get('/api/' + group_id + '/addnew')
-            .then(res => {
-                console.log(res)
-            })
+        // let group_id = this.props.match.params.group_id
+        // axios.get('/api/' + group_id + '/addnew')
+        //     .then(res => {
+        //         console.log(res)
+        //     })
     }
 }
 export default NewPost;

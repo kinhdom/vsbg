@@ -41,7 +41,7 @@ class listGroup extends Component {
     componentDidMount() {
         this.setState({ isFetchData: true })
         console.log('Get groups ...')
-        Axios.get('http://localhost:3000/api/mygroups')
+        Axios.get('https://vsbgnew.herokuapp.com/api/mygroups')
             .then(res => {
                 this.setState({
                     arrGroups: res.data,
