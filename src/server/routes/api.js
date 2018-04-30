@@ -61,34 +61,7 @@ router.get('/detail/:post_id', (req, res) => {
 })
 router.get('/:group_id/addnew', (req, res) => {
     let group_id = req.params.group_id
-    func.getNewestPost(group_id, (doc) => {
-        if (doc[0]) {
-            let newestPostTime = doc[0].created_time
-            let query = 'https://graph.facebook.com/' + group_id + '/feed?format=json&fields=' + config.fieldsFeed + '&access_token=' + config.access_token + '&limit=100';
-            request(query, (err, response, body) => {
-                let bodyJson = JSON.parse(body)
-                if (bodyJson) {
-                    if (bodyJson.data) {
-                        bodyJson.data.forEach(post => {
-                            if (post) {
-                                let created_time = post.created_time
-                                if (new Date(created_time) > new Date(newestPostTime)) {
-                                    func.addPostToDatabase(post, group_id)
-                                }
-                            }
-                        });
-                        res.json({ message: 'Updated' })
-                    }
-                }
-
-            })
-        } else {
-            res.json({ message: 'Crawl...' })
-            console.log('Crawl...')
-            func.crawl(group_id, config.access_token)
-            // Crawl
-        }
-    })
+    
 
 })
 router.get('/convert', function (req, res) {

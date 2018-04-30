@@ -76,7 +76,7 @@ class NewPost extends Component {
         this.fetchData(group_id, 1)
     }
     componentDidMount() {
-        console.log('Add new post')
+        
         // let group_id = this.props.match.params.group_id
         // axios.get('/api/' + group_id + '/addnew')
         //     .then(res => {
