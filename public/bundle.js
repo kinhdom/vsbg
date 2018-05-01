@@ -26871,6 +26871,8 @@ var routes = [{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(62);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Post_Post__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_querystring__ = __webpack_require__(262);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_querystring___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_querystring__);
 var _jsxFileName = '/home/xuanhuyjs/Desktop/ssr-route/src/shared/components/NewPost/NewPost.js';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -26885,6 +26887,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
+
 var NewPost = function (_Component) {
     _inherits(NewPost, _Component);
 
@@ -26894,7 +26897,9 @@ var NewPost = function (_Component) {
         var _this = _possibleConstructorReturn(this, (NewPost.__proto__ || Object.getPrototypeOf(NewPost)).call(this, props));
 
         _this.state = {
-            group_id: null,
+            group_id: '',
+            user_fb_id: '',
+            user_fb_access_token: '',
             currentPage: 1,
             arrPosts: [],
             isFetchData: false
@@ -26918,6 +26923,18 @@ var NewPost = function (_Component) {
             });
         }
     }, {
+        key: 'updateDatabase',
+        value: function updateDatabase() {
+            var group_id = this.state.group_id;
+            var access_token = this.state.access_token;
+            var params = new URLSearchParams();
+            params.append('group_id', group_id);
+            params.append('access_token', access_token);
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('/api/updataDatabase', params).then(function (res) {
+                console.log(res);
+            });
+        }
+    }, {
         key: 'fetchData',
         value: function fetchData(group_id, page) {
             var _this3 = this;
@@ -26926,6 +26943,7 @@ var NewPost = function (_Component) {
             console.log('Newpost Fetching ' + page);
             return __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('https://vsbgnew.herokuapp.com/api/' + group_id + '/newpost/' + page).then(function (res) {
                 if (res.status === 200 && res.data.message) {
+
                     _this3.setState({
                         arrPosts: _this3.state.arrPosts.concat(res.data.message),
                         isFetchData: false
@@ -26933,9 +26951,6 @@ var NewPost = function (_Component) {
                 }
             });
         }
-    }, {
-        key: 'updateData',
-        value: function updateData() {}
     }, {
         key: 'render',
         value: function render() {
@@ -26946,7 +26961,7 @@ var NewPost = function (_Component) {
                 {
                     __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 44
+                        lineNumber: 58
                     },
                     __self: this
                 },
@@ -26954,13 +26969,13 @@ var NewPost = function (_Component) {
                     'div',
                     { className: 'progress', __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 46
+                            lineNumber: 60
                         },
                         __self: this
                     },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'indeterminate', __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 47
+                            lineNumber: 61
                         },
                         __self: this
                     })
@@ -26969,22 +26984,43 @@ var NewPost = function (_Component) {
                     'div',
                     { className: 'container', __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 52
+                            lineNumber: 66
                         },
                         __self: this
                     },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'a',
+                        { className: 'waves-effect waves-light btn', onClick: this.updateDatabase.bind(this), __source: {
+                                fileName: _jsxFileName,
+                                lineNumber: 67
+                            },
+                            __self: this
+                        },
+                        'Update'
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'a',
+                        { className: 'waves-effect waves-light btn', onClick: this.crawlDatabase, __source: {
+                                fileName: _jsxFileName,
+                                lineNumber: 68
+                            },
+                            __self: this
+                        },
+                        'Crawl'
+                    ),
                     this.state.arrPosts.map(function (post) {
+                        console.log(post);
                         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Post_Post__["a" /* default */], {
                             key: post._id,
                             post_id: post.post_id,
                             name: post.from_name,
                             uid: post.from_id,
                             image: post.image ? post.image : post.full_picture,
-                            caption: post.post_message.slice(0, 250),
+                            caption: post.post_message,
                             likes: post.likes,
                             __source: {
                                 fileName: _jsxFileName,
-                                lineNumber: 55
+                                lineNumber: 72
                             },
                             __self: _this4
                         });
@@ -26994,7 +27030,7 @@ var NewPost = function (_Component) {
                     'div',
                     { className: ' fixed-action-btn row center-align', onClick: this.clickLoadMore.bind(this), __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 67
+                            lineNumber: 84
                         },
                         __self: this
                     },
@@ -27002,7 +27038,7 @@ var NewPost = function (_Component) {
                         'a',
                         { className: 'btn-floating btn-large waves-effect waves-light red', __source: {
                                 fileName: _jsxFileName,
-                                lineNumber: 68
+                                lineNumber: 85
                             },
                             __self: this
                         },
@@ -27010,7 +27046,7 @@ var NewPost = function (_Component) {
                             'i',
                             { className: 'material-icons', __source: {
                                     fileName: _jsxFileName,
-                                    lineNumber: 68
+                                    lineNumber: 85
                                 },
                                 __self: this
                             },
@@ -27023,21 +27059,30 @@ var NewPost = function (_Component) {
     }, {
         key: 'componentWillMount',
         value: function componentWillMount() {
+            var _this5 = this;
+
             console.log('will mount');
             var group_id = this.props.match.params.group_id;
-            this.setState({
-                group_id: group_id
+            // let user_id = localStorage.getItem('')
+            var user_id = '5ae750c6acd6e04c662c5471';
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('/api/userinfo', __WEBPACK_IMPORTED_MODULE_3_querystring___default.a.stringify({ user_id: user_id })).then(function (info) {
+                console.log(info.user_fb_access_token);
+                _this5.setState({
+                    user_fb_id: info.user_fb_uid,
+                    user_fb_access_token: info.user_fb_access_token,
+                    group_id: group_id
+                });
             });
             this.fetchData(group_id, 1);
         }
     }, {
         key: 'componentDidMount',
         value: function componentDidMount() {
-
             var group_id = this.props.match.params.group_id;
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/api/' + group_id + '/addnew').then(function (res) {
-                console.log(res);
-            });
+            // axios.get('/api/' + group_id + '/addnew')
+            //     .then(res => {
+            //         console.log(res)
+            //     })
         }
     }]);
 
@@ -28705,6 +28750,201 @@ var Footer = function (_Component) {
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
 /* harmony default export */ __webpack_exports__["a"] = (Footer);
+
+/***/ }),
+/* 261 */,
+/* 262 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.decode = exports.parse = __webpack_require__(263);
+exports.encode = exports.stringify = __webpack_require__(264);
+
+
+/***/ }),
+/* 263 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+
+// If obj.hasOwnProperty has been overridden, then calling
+// obj.hasOwnProperty(prop) will break.
+// See: https://github.com/joyent/node/issues/1707
+function hasOwnProperty(obj, prop) {
+  return Object.prototype.hasOwnProperty.call(obj, prop);
+}
+
+module.exports = function(qs, sep, eq, options) {
+  sep = sep || '&';
+  eq = eq || '=';
+  var obj = {};
+
+  if (typeof qs !== 'string' || qs.length === 0) {
+    return obj;
+  }
+
+  var regexp = /\+/g;
+  qs = qs.split(sep);
+
+  var maxKeys = 1000;
+  if (options && typeof options.maxKeys === 'number') {
+    maxKeys = options.maxKeys;
+  }
+
+  var len = qs.length;
+  // maxKeys <= 0 means that we should not limit keys count
+  if (maxKeys > 0 && len > maxKeys) {
+    len = maxKeys;
+  }
+
+  for (var i = 0; i < len; ++i) {
+    var x = qs[i].replace(regexp, '%20'),
+        idx = x.indexOf(eq),
+        kstr, vstr, k, v;
+
+    if (idx >= 0) {
+      kstr = x.substr(0, idx);
+      vstr = x.substr(idx + 1);
+    } else {
+      kstr = x;
+      vstr = '';
+    }
+
+    k = decodeURIComponent(kstr);
+    v = decodeURIComponent(vstr);
+
+    if (!hasOwnProperty(obj, k)) {
+      obj[k] = v;
+    } else if (isArray(obj[k])) {
+      obj[k].push(v);
+    } else {
+      obj[k] = [obj[k], v];
+    }
+  }
+
+  return obj;
+};
+
+var isArray = Array.isArray || function (xs) {
+  return Object.prototype.toString.call(xs) === '[object Array]';
+};
+
+
+/***/ }),
+/* 264 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+
+var stringifyPrimitive = function(v) {
+  switch (typeof v) {
+    case 'string':
+      return v;
+
+    case 'boolean':
+      return v ? 'true' : 'false';
+
+    case 'number':
+      return isFinite(v) ? v : '';
+
+    default:
+      return '';
+  }
+};
+
+module.exports = function(obj, sep, eq, name) {
+  sep = sep || '&';
+  eq = eq || '=';
+  if (obj === null) {
+    obj = undefined;
+  }
+
+  if (typeof obj === 'object') {
+    return map(objectKeys(obj), function(k) {
+      var ks = encodeURIComponent(stringifyPrimitive(k)) + eq;
+      if (isArray(obj[k])) {
+        return map(obj[k], function(v) {
+          return ks + encodeURIComponent(stringifyPrimitive(v));
+        }).join(sep);
+      } else {
+        return ks + encodeURIComponent(stringifyPrimitive(obj[k]));
+      }
+    }).join(sep);
+
+  }
+
+  if (!name) return '';
+  return encodeURIComponent(stringifyPrimitive(name)) + eq +
+         encodeURIComponent(stringifyPrimitive(obj));
+};
+
+var isArray = Array.isArray || function (xs) {
+  return Object.prototype.toString.call(xs) === '[object Array]';
+};
+
+function map (xs, f) {
+  if (xs.map) return xs.map(f);
+  var res = [];
+  for (var i = 0; i < xs.length; i++) {
+    res.push(f(xs[i], i));
+  }
+  return res;
+}
+
+var objectKeys = Object.keys || function (obj) {
+  var res = [];
+  for (var key in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) res.push(key);
+  }
+  return res;
+};
+
 
 /***/ })
 /******/ ]);

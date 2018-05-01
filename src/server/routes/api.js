@@ -1,42 +1,76 @@
-const request = require('request');
-const express = require('express');
-const router = express.Router();
-const mongojs = require('mongojs');
-const config = require('./config');
-const func = require('./function');
-const db = require('./db');
+import request from "request";
+import { Router } from "express";
+const router = Router();
+import mongojs from "mongojs";
+import { config } from "./config";
+import {
+    getNewestPost,
+    updateDatabase,
+    getMyGroups,
+    crawl,
+    getInfoGroup,
+    uploadToWordpress,
+    fetchData,
+    addPostToDatabase,
+    getInfo,
+    getInfoUser
+} from "./function";
+import { groups, users, vsbg, vsbg_info_people } from "./db";
+import { getAccessTokenFromUserId } from './asyncFunc';
+
+router.post('/userinfo', (req, res) => {
+    let user_id = req.body.user_id
+    getInfoUser(user_id)
+        .then(info => {
+            res.json({
+                user_fb_uid: info.user_fb_uid,
+                user_fb_access_token: info.user_fb_access_token
+            })
+        })
+})
 
 router.get('/groups', (req, res) => {
-    db.groups.find({}).toArray(function (err, docs) {
+    groups.find({}).toArray(function (err, docs) {
     })
 })
 router.get('/mygroups', (req, res) => {
-    let user_id = config.user_id;
-    db.groups.find({ user_id: user_id }).toArray(function (err, docs) {
+    let user_id = _user_id;
+    groups.find({ user_id: user_id }).sort({ member_count: -1 }).toArray(function (err, docs) {
         res.json(docs)
     })
+})
+router.post('/updataDatabase', (req, res) => {
+    console.log('posted to /updataDatabase')
+    let group_id = req.body.group_id;
+    let access_token = req.body.access_token
+    updateDatabase(group_id, access_token)
+    res.json({ msg: 'ok' })
+
 })
 router.post('/initmygroups', (req, res) => {
     // let user_id = req.body.user_id;
     // Get access_token from user_id, find on database
-    let user_id = config.user_id
-    let access_token = config.access_token
-    func.getMyGroups(access_token, (groups_info) => {
-        groups_info.forEach(group_info => {
-            group_info.user_id = user_id
-            db.groups.insert(group_info, (err, docs) => {
-                console.log('Adding ...' + group_info.name)
-            })
-        });
-        res.json(groups_info)
+    let user_id = _user_id
+    let access_token = _access_token
+    getMyGroups(access_token, (groups_info) => {
+        users.insert({
+            user_fb_uid: user_id,
+            user_fb_access_token: access_token,
+            user_groups: groups_info
+        })
+        res.json({
+            user_fb_uid: user_id,
+            user_fb_access_token: access_token,
+            user_groups: groups_info
+        })
     })
 })
 router.post('/addgroup', (req, res) => {
     let group_id = req.body.group_id;
     let access_token = req.body.access_token;
-    func.crawl(group_id, access_token);
-    func.getInfoGroup(group_id, access_token, (err, res) => {
-        db.groups.insert(res)
+    crawl(group_id, access_token);
+    getInfoGroup(group_id, access_token, (err, res) => {
+        groups.insert(res)
     })
 })
 router.get('/:group_id/newpost/:page', (req, res) => {
@@ -45,7 +79,7 @@ router.get('/:group_id/newpost/:page', (req, res) => {
     let page = req.params.page
     page >= 1 ? page = page : page = 1
     let skip = (page - 1) * limit
-    db.vsbg.find({ group_id: group_id }).limit(limit).skip(skip).sort({ created_time: -1 }, (err, data) => {
+    vsbg.find({ group_id: group_id }).limit(limit).skip(skip).sort({ created_time: -1 }, (err, data) => {
         if (err) {
             res.json({ message: err, success: false })
         } else {
@@ -55,24 +89,24 @@ router.get('/:group_id/newpost/:page', (req, res) => {
 })
 router.get('/detail/:post_id', (req, res) => {
     let post_id = req.params.post_id
-    db.vsbg.find({ post_id: post_id }, (err, docs) => {
+    vsbg.find({ post_id: post_id }, (err, docs) => {
         res.json(docs)
     })
 })
 router.get('/:group_id/addnew', (req, res) => {
     let group_id = req.params.group_id
-    func.crawl(group_id, config.access_token)
+    crawl(group_id, _access_token)
     res.json({ message: 'Updated' })
 
 })
 router.get('/convert', function (req, res) {
-    db.vsbg.find({}).toArray(function (err, docs) {
+    vsbg.find({}).toArray(function (err, docs) {
         let dem = 0;
         docs.forEach(post => {
             let full_picture = post.full_picture
             let id = post._id
             if (full_picture) {
-                func.uploadToWordpress(full_picture, (success) => {
+                uploadToWordpress(full_picture, (success) => {
                     if (success) {
                         dem++;
                         console.log('Uploaded ' + dem)
@@ -85,13 +119,13 @@ router.get('/convert', function (req, res) {
 })
 router.get('/:group_id/crawl', function (req, res) {
     let group_id = req.params.group_id;
-    let query = 'https://graph.facebook.com/' + group_id + '/feed?format=json&fields=' + config.fieldsFeed + '&access_token=' + config.access_token + '&limit=25';
-    func.fetchData(query, (data) => {
+    let query = 'https://graph.facebook.com/' + group_id + '/feed?format=json&fields=' + fieldsFeed + '&access_token=' + _access_token + '&limit=25';
+    fetchData(query, (data) => {
         if (data) {
             if (data.data) {
                 data.data.forEach(post => {
                     if (post) {
-                        func.addPostToDatabase(post, group_id)
+                        addPostToDatabase(post, group_id)
                     }
                 });
             }
@@ -101,10 +135,10 @@ router.get('/:group_id/crawl', function (req, res) {
 })
 router.get('/info', (req, res) => {
     let deminfo = 0;
-    db.vsbg.find({}, (err, people) => {
+    vsbg.find({}, (err, people) => {
         people.forEach(user => {
-            func.getInfo(user.id, (data) => {
-                db.vsbg_info_people.insert(data)
+            getInfo(user.id, (data) => {
+                vsbg_info_people.insert(data)
                 deminfo++;
                 console.log(deminfo + 'user.id')
             })
@@ -114,7 +148,7 @@ router.get('/info', (req, res) => {
 })
 router.get('/delete/:post_id', (req, res) => {
     let post_id = req.params.post_id
-    db.vsbg.remove({ post_id: post_id }, (err, docs) => {
+    vsbg.remove({ post_id: post_id }, (err, docs) => {
         res.json(docs)
     })
 })
@@ -124,7 +158,7 @@ router.get('/:group_id/top/:page', (req, res) => {
     let page = req.params.page
     page >= 1 ? page = page : page = 1
     let skip = (page - 1) * 10
-    db.vsbg.find({ group_id: group_id }).limit(limit).skip(skip).sort({ likes: -1 }, (err, data) => {
+    vsbg.find({ group_id: group_id }).limit(limit).skip(skip).sort({ likes: -1 }, (err, data) => {
         if (err) {
             res.json({ message: err, success: false })
         } else {
@@ -132,10 +166,6 @@ router.get('/:group_id/top/:page', (req, res) => {
         }
     })
 })
-router.get('/hot', (req, res) => {
-
-})
 
 
-
-module.exports = router;
+export default router;
