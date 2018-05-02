@@ -26986,7 +26986,7 @@ var NewPost = function (_Component) {
             params.append('group_id', group_id);
             params.append('user_fb_access_token', user_fb_access_token);
             console.log(params);
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('/api/updataDatabase', params).then(function (res) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('http://react-routest.herokuapp.com/api/updataDatabase', params).then(function (res) {
                 console.log(res);
             });
         }
