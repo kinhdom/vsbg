@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Group from './Group';
 
 import Axios from 'axios';
-
+import querystring from 'querystring'
 class listGroup extends Component {
     constructor(props) {
         super(props)
@@ -41,7 +41,8 @@ class listGroup extends Component {
     componentDidMount() {
         this.setState({ isFetchData: true })
         console.log('Get groups ...')
-        Axios.get('https://vsbgnew.herokuapp.com/api/mygroups')
+        let user_id = '5ae750c6acd6e04c662c5471'
+        Axios.post('/api/mygroups', querystring.stringify({ user_id: user_id }))
             .then(res => {
                 this.setState({
                     arrGroups: res.data,
