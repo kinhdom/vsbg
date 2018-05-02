@@ -32,7 +32,7 @@ class TopPost extends Component {
     }
     fetchData(group_id, page) {
         console.log('Fetching ' + page)
-        return axios.get('http://react-routest.herokuapp.com/api/' + group_id + '/top/' + page)
+        return axios.get('https://react-routest.herokuapp.com/api/' + group_id + '/top/' + page)
             .then(res => {
                 if (res.status === 200 && res.data.message) {
                     this.setState({

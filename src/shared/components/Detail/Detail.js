@@ -18,7 +18,7 @@ class Detail extends Component {
     }
     componentWillMount() {
         let post_id = this.props.match.params.id
-        Axios.get('http://react-routest.herokuapp.com/api/detail/' + post_id)
+        Axios.get('https://react-routest.herokuapp.com/api/detail/' + post_id)
             .then(res => {
                 if (res) {
                     this.setState({

@@ -13,7 +13,7 @@ class Post extends Component {
             group_id: '1416109728606342',
             access_token: 'EAAAAUaZA8jlABAP2JyvV2W6BscLhEm5itm312SOPw4xdHq4T2PviBzwboZCxp9qOAXzvXKoAbsewvL7AdKiwwIfMqTB7eSdIRs7fS41LZBiiTWz6AveP9ODeulgx2zc84sZCDNjdyAM5A66y0tBZBwZAFUpg6P2EYBWh8TrJ7pW3BH4wLWFTVXCgvH6p11RrhBK3x0PhUSSwZDZD'
         }
-        Axios.post('http://react-routest.herokuapp.com/api/postPhoto2Group', querystring.stringify(data))
+        Axios.post('https://react-routest.herokuapp.com/api/postPhoto2Group', querystring.stringify(data))
             .then(res => {
                 M.toast({ html: 'Posted ' + res.data.msg })
                 console.log(res.data.msg)

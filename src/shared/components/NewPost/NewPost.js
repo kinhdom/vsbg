@@ -33,7 +33,7 @@ class NewPost extends Component {
         params.append('group_id', group_id);
         params.append('user_fb_access_token', user_fb_access_token)
         console.log(params)
-        axios.post('http://react-routest.herokuapp.com/api/updataDatabase', params)
+        axios.post('https://react-routest.herokuapp.com/api/updataDatabase', params)
             .then(res => {
                 console.log(res)
             })
@@ -47,7 +47,7 @@ class NewPost extends Component {
             group_id: group_id,
             user_fb_access_token: user_fb_access_token
         }
-        axios.post('http://react-routest.herokuapp.com/api/crawl', querystring.stringify(dataCrawl))
+        axios.post('https://react-routest.herokuapp.com/api/crawl', querystring.stringify(dataCrawl))
     }
     fetchData(group_id, page) {
         this.setState({ isFetchData: true })
@@ -56,7 +56,7 @@ class NewPost extends Component {
             group_id: group_id,
             page: page
         }
-        return axios.post('http://react-routest.herokuapp.com/api/newpost/', querystring.stringify(dataFetch))
+        return axios.post('https://react-routest.herokuapp.com/api/newpost/', querystring.stringify(dataFetch))
             .then(res => {
                 if (res.status === 200 && res.data.message) {
                     this.setState({
@@ -110,7 +110,7 @@ class NewPost extends Component {
         console.log('Did mount')
         let user_id = '5ae750c6acd6e04c662c5471';
         let group_id = this.props.match.params.group_id
-        axios.post('http://react-routest.herokuapp.com/api/userinfo', querystring.stringify({ user_id: user_id }))
+        axios.post('https://react-routest.herokuapp.com/api/userinfo', querystring.stringify({ user_id: user_id }))
             .then(info => {
                 console.log('Get info user done !')
                 this.setState({
