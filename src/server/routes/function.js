@@ -65,27 +65,6 @@ export function addPostToDatabase(post, group_id) {
     });
 
 }
-export function findAndModifyImage(full_picture, newImage) {
-    vsbg.findAndModify({
-        query: { full_picture: full_picture },
-        update: { $set: { image: newImage } },
-        new: true
-    }, () => {
-        console.log('Done');
-    });
-}
-export function uploadToImgur(full_picture) {
-    return new Promise((resolve, reject) => {
-        uploadUrl(full_picture)
-            .then(function (json) {
-                resolve(json.data.link);
-            })
-            .catch(function (err) {
-                reject(0);
-            });
-    })
-
-}
 export function getNewestPost(group_id) {
     return new Promise((resolve, reject) => {
         vsbg.find({ group_id: group_id }).limit(1).sort({ created_time: -1 }, (err, doc) => {
@@ -131,6 +110,7 @@ export function getMyGroups(access_token) {
 export function getFieldsOfObject(uid, object, fields, access_token, limit, isFetchNext) {
     let query = 'https://graph.facebook.com/' + uid + '/' + object + '?format=json&fields=' + fields + '&access_token=' + access_token + '&limit=' + limit;
     return new Promise((resolve, reject) => {
+        console.log(query)
         fetchData(query, isFetchNext, (data) => {
             resolve(data)
         })
@@ -149,7 +129,6 @@ export function getInfoUser(user_id) {
         })
     })
 }
-
 export function postPhoto(photo, caption, UID, access_token) {
     let endpoint = 'https://graph.facebook.com/' + UID + '/photos'
     let data = {
@@ -171,9 +150,16 @@ export function postPhoto(photo, caption, UID, access_token) {
 
 }
 export async function getUserName(uid, access_token) {
-    let res = await getFieldsOfObject(uid, 'username', access_token, 25)
-    if (res.username) {
-        return res.username
-    }
+    let query = 'https://graph.facebook.com/' + uid + '/?fields=username&access_token=' + access_token
+    get(query, (err, response, body) => {
+
+        if (err) {
+            return uid
+        }
+        let bodyJson = JSON.parse(body)
+        if (bodyJson) {
+            return bodyJson.username
+        }
+    })
     return uid
 }
