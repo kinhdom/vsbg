@@ -33,7 +33,7 @@ class NewPost extends Component {
         params.append('group_id', group_id);
         params.append('user_fb_access_token', user_fb_access_token)
         console.log(params)
-        axios.post('/api/updataDatabase', params)
+        axios.post('http://react-routest.herokuapp.com/api/updataDatabase', params)
             .then(res => {
                 console.log(res)
             })
