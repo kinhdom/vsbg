@@ -46,25 +46,7 @@ router.post('/userinfo', (req, res) => {
         })
         .catch(e => console.log(e))
 })
-
-router.get('/groups', (req, res) => {
-    groups.find({}).toArray(function (err, docs) {
-    })
-})
-router.post('/mygroups', (req, res) => {
-    let user_id = req.body.user_id;
-    users.find({ _id: mongojs.ObjectId(user_id) }, function (err, docs) {
-        res.json(docs[0].user_groups)
-    })
-})
-router.post('/updataDatabase', (req, res) => {
-    let group_id = req.body.group_id;
-    let user_fb_access_token = req.body.user_fb_access_token
-    updateDatabase(group_id, user_fb_access_token)
-    res.json({ msg: 'ok' })
-
-})
-router.post('/initmygroups', (req, res) => {
+router.post('/adduser', (req, res) => {
     let user_fb_id = req.body.user_fb_id
     let user_access_token = req.body.user_access_token
     getMyGroups(user_access_token)
@@ -83,20 +65,25 @@ router.post('/initmygroups', (req, res) => {
         .catch(e => res.json(e))
 
 })
-router.post('/addgroup', (req, res) => {
-    let group_id = req.body.group_id;
-    let access_token = req.body.access_token;
-    crawl(group_id, access_token);
-    getInfoGroup(group_id, access_token, (err, res) => {
-        groups.insert(res)
+
+router.post('/mygroups', (req, res) => {
+    let user_id = req.body.user_id;
+    users.find({ _id: mongojs.ObjectId(user_id) }, function (err, docs) {
+        res.json(docs[0].user_groups)
     })
 })
+router.post('/updataDatabase', (req, res) => {
+    let group_id = req.body.group_id;
+    let user_fb_access_token = req.body.user_fb_access_token
+    updateDatabase(group_id, user_fb_access_token)
+    res.json({ msg: 'ok' })
+
+})
+
 router.post('/newpost', (req, res) => {
-    // let group_id = req.params.group_id;
     let group_id = req.body.group_id;
     let page = req.body.page
     let limit = 12;
-    // let page = req.params.page
     page >= 1 ? page = page : page = 1
     let skip = (page - 1) * limit
     vsbg.find({ group_id: group_id }).limit(limit).skip(skip).sort({ created_time: -1 }, (err, data) => {
@@ -110,7 +97,7 @@ router.post('/newpost', (req, res) => {
 router.get('/detail/:post_id', (req, res) => {
     let post_id = req.params.post_id
     vsbg.find({ post_id: post_id }, (err, docs) => {
-        res.json(docs)
+        res.json(docs[0])
     })
 })
 router.post('/crawl', function (req, res) {
@@ -144,7 +131,7 @@ router.get('/:group_id/top/:page', (req, res) => {
     let page = req.params.page
     page >= 1 ? page = page : page = 1
     let skip = (page - 1) * 10
-    vsbg.find({ group_id: group_id }).limit(limit).skip(skip).sort({ likes: -1 }, (err, data) => {
+    vsbg.find({ group_id: group_id }).limit(limit).skip(skip).sort({ likes_count: -1 }, (err, data) => {
         if (err) {
             res.json({ message: err, success: false })
         } else {

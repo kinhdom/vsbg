@@ -7,15 +7,23 @@ import mongojs from "mongojs";
 import { vsbg, users } from "./db";
 var dem = 0;
 export async function crawl(group_id, access_token) {
+    let deleted = await deleteFeed(group_id)
+    console.log(deleted)
     console.log('Running function crawl ...')
     let query = 'https://graph.facebook.com/' + group_id + '/feed?format=json&fields=' + config.fieldsFeed + '&access_token=' + access_token + '&limit=100';
-
     fetchData(query, true, (data) => {
         if (data) {
             data.forEach(post => {
                 addPostToDatabase(post, group_id)
             });
         }
+    })
+}
+export function deleteFeed(group_id) {
+    return new Promise((resolve, reject) => {
+        vsbg.remove({ group_id: group_id }, function (err, docs) {
+            resolve(docs)
+        })
     })
 }
 export function fetchData(query, isFetchNext, callback) {
@@ -41,13 +49,12 @@ export function fetchData(query, isFetchNext, callback) {
 
 }
 export function addPostToDatabase(post, group_id) {
-    let likes;
-    if (post.likes) {
-        likes = post.likes.count;
-    }
-    else {
-        likes = 0;
-    }
+    let likes_count;
+    let comments_count;
+    let shares_count;
+    post.likes ? likes_count = post.likes.count : likes_count = 0;
+    post.comments ? comments_count = post.comments.count : comments_count = 0;
+    post.shares ? shares_count = post.shares.count : shares_count = 0;
     vsbg.insert({
         group_id: group_id,
         post_id: post.id,
@@ -57,7 +64,9 @@ export function addPostToDatabase(post, group_id) {
         full_picture: post.full_picture,
         from_name: post.from.name,
         from_id: post.from.id,
-        likes: likes,
+        likes_count: likes_count,
+        comments_count: comments_count,
+        shares_count: shares_count,
         isPosted: false
     }, (err, docInserted) => {
         dem++;
@@ -81,9 +90,7 @@ export async function updateDatabase(group_id, access_token) {
     console.log('Running function updateDatabase')
     let newestPost = await getNewestPost(group_id)
     if (newestPost[0]) {
-        // let query = 'https://graph.facebook.com/' + group_id + '/feed?format=json&fields=' + config.fieldsFeed + '&access_token=' + access_token + '&limit=100';
-        // let data100Post = await fetchData(query, false)
-        let data100Post = await getFieldsOfObject(group_id, 'feed', config.fieldsFeed, access_token, 5, false)
+        let data100Post = await getFieldsOfObject(group_id, 'feed', config.fieldsFeed, access_token, 100, false)
         if (data100Post) {
             data100Post.forEach(post => {
                 if (post.created_time > newestPost[0].created_time) {

@@ -22,7 +22,7 @@ class TopPost extends Component {
                                 uid={post.from_id}
                                 image={post.image ? post.image : post.full_picture}
                                 caption={post.post_message}
-                                likes={post.likes}
+                                likes_count={post.likes_count}
                             />
                         )
                     })}
@@ -32,7 +32,7 @@ class TopPost extends Component {
     }
     fetchData(group_id, page) {
         console.log('Fetching ' + page)
-        return axios.get('/api/' + group_id + '/top/' + page)
+        return axios.get('http://react-routest.herokuapp.com/api/' + group_id + '/top/' + page)
             .then(res => {
                 if (res.status === 200 && res.data.message) {
                     this.setState({

@@ -42,7 +42,7 @@ class listGroup extends Component {
         this.setState({ isFetchData: true })
         console.log('Get groups ...')
         let user_id = '5ae750c6acd6e04c662c5471'
-        Axios.post('/api/mygroups', querystring.stringify({ user_id: user_id }))
+        Axios.post('http://react-routest.herokuapp.com/api/mygroups', querystring.stringify({ user_id: user_id }))
             .then(res => {
                 this.setState({
                     arrGroups: res.data,
