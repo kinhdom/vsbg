@@ -12026,9 +12026,9 @@ var Post = function (_Component) {
                 photo_url: this.props.image,
                 caption: this.props.caption,
                 group_id: '1416109728606342',
-                access_token: 'EAAAAUaZA8jlABAP2JyvV2W6BscLhEm5itm312SOPw4xdHq4T2PviBzwboZCxp9qOAXzvXKoAbsewvL7AdKiwwIfMqTB7eSdIRs7fS41LZBiiTWz6AveP9ODeulgx2zc84sZCDNjdyAM5A66y0tBZBwZAFUpg6P2EYBWh8TrJ7pW3BH4wLWFTVXCgvH6p11RrhBK3x0PhUSSwZDZD'
+                access_token: 'EAAAAUaZA8jlABAJjApexSFcowtJOv0UWAgQip58ZBAVaDF8lPEb2RALWlEaFaBen60ZArhfeVk32ZAUzfLlqeP3iZBxv2EWzLNyrZB77bULRj5UTB6Tf9a6ZCUy83CJVU8pKOhdWdKAmC7gBda0H55L7KOC3ZAGONWIXfQgqZCtOBuiUBa7fgLfCNXHYIkEE40oIZD'
             };
-            __WEBPACK_IMPORTED_MODULE_2_axios___default.a.post('http://react-routest.herokuapp.com/api/postPhoto2Group', __WEBPACK_IMPORTED_MODULE_3_querystring___default.a.stringify(data)).then(function (res) {
+            __WEBPACK_IMPORTED_MODULE_2_axios___default.a.post('http://localhost:3000/api/postPhoto2Group', __WEBPACK_IMPORTED_MODULE_3_querystring___default.a.stringify(data)).then(function (res) {
                 M.toast({ html: 'Posted ' + res.data.msg });
                 console.log(res.data.msg);
             }).catch(function (e) {
@@ -12138,7 +12138,7 @@ var Post = function (_Component) {
                                                     },
                                                     __self: this
                                                 },
-                                                this.props.likes_count
+                                                this.props.score
                                             )
                                         )
                                     ),
@@ -26986,7 +26986,7 @@ var NewPost = function (_Component) {
             params.append('group_id', group_id);
             params.append('user_fb_access_token', user_fb_access_token);
             console.log(params);
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('http://react-routest.herokuapp.com/api/updataDatabase', params).then(function (res) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('http://localhost:3000/api/updataDatabase', params).then(function (res) {
                 console.log(res);
             });
         }
@@ -26999,7 +26999,7 @@ var NewPost = function (_Component) {
                 group_id: group_id,
                 user_fb_access_token: user_fb_access_token
             };
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('http://react-routest.herokuapp.com/api/crawl', __WEBPACK_IMPORTED_MODULE_3_querystring___default.a.stringify(dataCrawl));
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('http://localhost:3000/api/crawl', __WEBPACK_IMPORTED_MODULE_3_querystring___default.a.stringify(dataCrawl));
         }
     }, {
         key: 'fetchData',
@@ -27012,7 +27012,7 @@ var NewPost = function (_Component) {
                 group_id: group_id,
                 page: page
             };
-            return __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('http://react-routest.herokuapp.com/api/newpost/', __WEBPACK_IMPORTED_MODULE_3_querystring___default.a.stringify(dataFetch)).then(function (res) {
+            return __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('http://localhost:3000/api/newpost/', __WEBPACK_IMPORTED_MODULE_3_querystring___default.a.stringify(dataFetch)).then(function (res) {
                 if (res.status === 200 && res.data.message) {
                     _this3.setState({
                         arrPosts: _this3.state.arrPosts.concat(res.data.message),
@@ -27088,7 +27088,8 @@ var NewPost = function (_Component) {
                             uid: post.from_id,
                             image: post.image ? post.image : post.full_picture,
                             caption: post.post_message,
-                            likes_count: post.likes_count,
+                            score: post.score,
+                            user_fb_access_token: _this4.state.user_fb_access_token,
                             __source: {
                                 fileName: _jsxFileName,
                                 lineNumber: 85
@@ -27101,7 +27102,7 @@ var NewPost = function (_Component) {
                     'div',
                     { className: ' fixed-action-btn row center-align', onClick: this.clickLoadMore.bind(this), __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 97
+                            lineNumber: 98
                         },
                         __self: this
                     },
@@ -27109,7 +27110,7 @@ var NewPost = function (_Component) {
                         'a',
                         { className: 'btn-floating btn-large waves-effect waves-light red', __source: {
                                 fileName: _jsxFileName,
-                                lineNumber: 98
+                                lineNumber: 99
                             },
                             __self: this
                         },
@@ -27117,7 +27118,7 @@ var NewPost = function (_Component) {
                             'i',
                             { className: 'material-icons', __source: {
                                     fileName: _jsxFileName,
-                                    lineNumber: 98
+                                    lineNumber: 99
                                 },
                                 __self: this
                             },
@@ -27126,6 +27127,20 @@ var NewPost = function (_Component) {
                     )
                 )
             );
+        }
+    }, {
+        key: 'componentWillUpdate',
+        value: function componentWillUpdate(nextProps) {
+            console.log('will update');
+            var group_info = nextProps.match.params;
+            if (this.props.match.params.group_id !== group_info.group_id) {
+                console.log('Khac');
+                this.setState({
+                    arrPosts: [],
+                    group_id: group_info.group_id
+                });
+                this.fetchData(group_info.group_id, 1);
+            }
         }
     }, {
         key: 'componentWillMount',
@@ -27142,7 +27157,7 @@ var NewPost = function (_Component) {
             console.log('Did mount');
             var user_id = '5ae750c6acd6e04c662c5471';
             var group_id = this.props.match.params.group_id;
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('http://react-routest.herokuapp.com/api/userinfo', __WEBPACK_IMPORTED_MODULE_3_querystring___default.a.stringify({ user_id: user_id })).then(function (info) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('http://localhost:3000/api/userinfo', __WEBPACK_IMPORTED_MODULE_3_querystring___default.a.stringify({ user_id: user_id })).then(function (info) {
                 console.log('Get info user done !');
                 _this5.setState({
                     user_fb_id: info.data.user_fb_uid,
@@ -28279,22 +28294,34 @@ var Detail = function (_Component) {
             );
         }
     }, {
-        key: 'componentWillMount',
-        value: function componentWillMount() {
+        key: 'getDetailData',
+        value: function getDetailData(post_id) {
             var _this2 = this;
 
-            var post_id = this.props.match.params.id;
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('http://react-routest.herokuapp.com/api/detail/' + post_id).then(function (res) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('http://localhost:3000/api/detail/' + post_id).then(function (res) {
                 if (res) {
                     _this2.setState({
                         post_id: post_id,
                         post_detail: res.data
                     });
-                    console.log(_this2.state);
                 }
             }).catch(function (e) {
                 return console.log(e + '');
             });
+        }
+    }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var post_id = this.props.match.params.id;
+            this.getDetailData(post_id);
+        }
+    }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            var newPostId = nextProps.match.params.id;
+            if (newPostId != this.state.post_id) {
+                this.getDetailData(newPostId);
+            }
         }
     }]);
 
@@ -28389,7 +28416,7 @@ var TopPost = function (_Component) {
             var _this3 = this;
 
             console.log('Fetching ' + page);
-            return __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('http://react-routest.herokuapp.com/api/' + group_id + '/top/' + page).then(function (res) {
+            return __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('http://localhost:3000/api/' + group_id + '/top/' + page).then(function (res) {
                 if (res.status === 200 && res.data.message) {
                     _this3.setState({
                         arrPosts: _this3.state.arrPosts.concat(res.data.message)
@@ -28510,14 +28537,14 @@ var listGroup = function (_Component) {
             );
         }
     }, {
-        key: 'componentDidMount',
-        value: function componentDidMount() {
+        key: 'componentWillMount',
+        value: function componentWillMount() {
             var _this3 = this;
 
             this.setState({ isFetchData: true });
             console.log('Get groups ...');
             var user_id = '5ae750c6acd6e04c662c5471';
-            __WEBPACK_IMPORTED_MODULE_2_axios___default.a.post('http://react-routest.herokuapp.com/api/mygroups', __WEBPACK_IMPORTED_MODULE_3_querystring___default.a.stringify({ user_id: user_id })).then(function (res) {
+            __WEBPACK_IMPORTED_MODULE_2_axios___default.a.post('http://localhost:3000/api/mygroups', __WEBPACK_IMPORTED_MODULE_3_querystring___default.a.stringify({ user_id: user_id })).then(function (res) {
                 _this3.setState({
                     arrGroups: res.data,
                     isFetchData: false
@@ -28743,7 +28770,7 @@ var Navbar = function (_Component) {
                             },
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Link */],
-                                { to: '/detail/3', __source: {
+                                { to: '/detail/1173636692750000_1528967297216936', __source: {
                                         fileName: _jsxFileName,
                                         lineNumber: 11
                                     },

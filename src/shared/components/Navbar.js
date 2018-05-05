@@ -8,7 +8,7 @@ class Navbar extends Component {
                     <a href="/" className="brand-logo">Logo</a>
                     <ul id="nav-mobile" className="right">
                         <li><Link to="/">HOME</Link></li>
-                        <li><Link to="/detail/3">Detail</Link></li>
+                        <li><Link to="/detail/1173636692750000_1528967297216936">Detail</Link></li>
                         <li><Link to="/top/1173636692750000">Top</Link></li>
                         <li><Link to="/group/1173636692750000">VSBG</Link></li>
                     </ul>

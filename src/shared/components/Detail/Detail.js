@@ -16,19 +16,27 @@ class Detail extends Component {
             </div>
         );
     }
-    componentWillMount() {
-        let post_id = this.props.match.params.id
-        Axios.get('https://react-routest.herokuapp.com/api/detail/' + post_id)
+    getDetailData(post_id) {
+        Axios.get('http://localhost:3000/api/detail/' + post_id)
             .then(res => {
                 if (res) {
                     this.setState({
                         post_id: post_id,
                         post_detail: res.data
                     })
-                    console.log(this.state)
                 }
             })
             .catch(e => console.log(e + ''))
+    }
+    componentDidMount() {
+        let post_id = this.props.match.params.id
+        this.getDetailData(post_id)
+    }
+    componentWillReceiveProps(nextProps) {
+        let newPostId = nextProps.match.params.id
+        if (newPostId != this.state.post_id) {
+            this.getDetailData(newPostId)
+        }
     }
 }
 

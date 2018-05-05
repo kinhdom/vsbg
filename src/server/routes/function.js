@@ -55,6 +55,10 @@ export function addPostToDatabase(post, group_id) {
     post.likes ? likes_count = post.likes.count : likes_count = 0;
     post.comments ? comments_count = post.comments.count : comments_count = 0;
     post.shares ? shares_count = post.shares.count : shares_count = 0;
+    let created_timestamp = new Date(post.created_time).getTime();
+    let updated_timestamp = new Date(post.updated_time).getTime();
+    let now_timestamp = new Date().getTime()
+    let score = (likes_count + 1) * (comments_count + 1) * (shares_count + 1) * (updated_timestamp - created_timestamp + 1) / (now_timestamp - created_timestamp) / (now_timestamp - updated_timestamp)
     vsbg.insert({
         group_id: group_id,
         post_id: post.id,
@@ -67,6 +71,7 @@ export function addPostToDatabase(post, group_id) {
         likes_count: likes_count,
         comments_count: comments_count,
         shares_count: shares_count,
+        score: score,
         isPosted: false
     }, (err, docInserted) => {
         dem++;
