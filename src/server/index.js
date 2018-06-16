@@ -9,7 +9,7 @@ import routes from "../shared/routes";
 import App from "../shared/App";
 import sourceMapSupport from "source-map-support";
 import api from './routes/api';
-
+import scanfb from './routes/scanfb';
 if (process.env.NODE_ENV === "development") {
   sourceMapSupport.install();
 }
@@ -22,6 +22,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cors());
 app.use(express.static("public"));
 app.use('/api', api);
+app.use('/scanfb', scanfb);
 
 app.get("*", (req, res, next) => {
   const activeRoute = routes.find(route => matchPath(req.url, route));

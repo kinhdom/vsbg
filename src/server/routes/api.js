@@ -20,7 +20,9 @@ import {
 import { groups, users, vsbg, vsbg_info_people } from "./db";
 import { getAccessTokenFromUserId } from './asyncFunc';
 
-
+router.get('/scan/group', (req, res) => {
+    res.json({ a: 3 })
+})
 router.post('/postPhoto2Group', async (req, res) => {
     let from_id = req.body.from_id
     let access_token = req.body.access_token

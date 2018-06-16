@@ -11,7 +11,7 @@ class Post extends Component {
             photo_url: this.props.image,
             caption: this.props.caption,
             group_id: '1416109728606342',
-            access_token: 'EAAAAUaZA8jlABAJjApexSFcowtJOv0UWAgQip58ZBAVaDF8lPEb2RALWlEaFaBen60ZArhfeVk32ZAUzfLlqeP3iZBxv2EWzLNyrZB77bULRj5UTB6Tf9a6ZCUy83CJVU8pKOhdWdKAmC7gBda0H55L7KOC3ZAGONWIXfQgqZCtOBuiUBa7fgLfCNXHYIkEE40oIZD'
+            access_token: 'EAAAAUaZA8jlABALk1eH1awHh5mrVsbWeJ9gX6Lnw2KCOtPsBJ6QTt4ZCYPCJ3VQTnn3kSqeThPUTzGvePhuObZBFjlAP6kuprbCT1apvNwYwWeel5jdyuL4PygkFCxT7GYIukDLI1k5n0js0SgZByUUdjhlIFE8ZD'
         }
         Axios.post('http://localhost:3000/api/postPhoto2Group', querystring.stringify(data))
             .then(res => {

@@ -11993,7 +11993,7 @@ module.exports = Cancel;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_querystring__ = __webpack_require__(64);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_querystring___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_querystring__);
-var _jsxFileName = '/home/xuanhuyjs/Desktop/ssr-route/src/shared/components/Post/Post.js';
+var _jsxFileName = '/home/dendo/Desktop/ssr-route/src/shared/components/Post/Post.js';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -12026,7 +12026,7 @@ var Post = function (_Component) {
                 photo_url: this.props.image,
                 caption: this.props.caption,
                 group_id: '1416109728606342',
-                access_token: 'EAAAAUaZA8jlABAJjApexSFcowtJOv0UWAgQip58ZBAVaDF8lPEb2RALWlEaFaBen60ZArhfeVk32ZAUzfLlqeP3iZBxv2EWzLNyrZB77bULRj5UTB6Tf9a6ZCUy83CJVU8pKOhdWdKAmC7gBda0H55L7KOC3ZAGONWIXfQgqZCtOBuiUBa7fgLfCNXHYIkEE40oIZD'
+                access_token: 'EAAAAUaZA8jlABALk1eH1awHh5mrVsbWeJ9gX6Lnw2KCOtPsBJ6QTt4ZCYPCJ3VQTnn3kSqeThPUTzGvePhuObZBFjlAP6kuprbCT1apvNwYwWeel5jdyuL4PygkFCxT7GYIukDLI1k5n0js0SgZByUUdjhlIFE8ZD'
             };
             __WEBPACK_IMPORTED_MODULE_2_axios___default.a.post('http://localhost:3000/api/postPhoto2Group', __WEBPACK_IMPORTED_MODULE_3_querystring___default.a.stringify(data)).then(function (res) {
                 M.toast({ html: 'Posted ' + res.data.msg });
@@ -12364,7 +12364,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_router_dom__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__shared_App__ = __webpack_require__(234);
-var _jsxFileName = "/home/xuanhuyjs/Desktop/ssr-route/src/browser/index.js";
+var _jsxFileName = "/home/dendo/Desktop/ssr-route/src/browser/index.js";
 
 
 
@@ -26828,7 +26828,7 @@ NavLink.defaultProps = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__App_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__App_css__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_Navbar__ = __webpack_require__(262);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_Footer__ = __webpack_require__(263);
-var _jsxFileName = "/home/xuanhuyjs/Desktop/ssr-route/src/shared/App.js",
+var _jsxFileName = "/home/dendo/Desktop/ssr-route/src/shared/App.js",
     _this = this;
 
 
@@ -26928,7 +26928,7 @@ var routes = [{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Post_Post__ = __webpack_require__(105);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_querystring__ = __webpack_require__(64);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_querystring___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_querystring__);
-var _jsxFileName = '/home/xuanhuyjs/Desktop/ssr-route/src/shared/components/NewPost/NewPost.js';
+var _jsxFileName = '/home/dendo/Desktop/ssr-route/src/shared/components/NewPost/NewPost.js';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -28249,7 +28249,7 @@ var objectKeys = Object.keys || function (obj) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
-var _jsxFileName = '/home/xuanhuyjs/Desktop/ssr-route/src/shared/components/Detail/Detail.js';
+var _jsxFileName = '/home/dendo/Desktop/ssr-route/src/shared/components/Detail/Detail.js';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -28340,7 +28340,7 @@ var Detail = function (_Component) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Post_Post__ = __webpack_require__(105);
-var _jsxFileName = '/home/xuanhuyjs/Desktop/ssr-route/src/shared/components/TopPost/TopPost.js';
+var _jsxFileName = '/home/dendo/Desktop/ssr-route/src/shared/components/TopPost/TopPost.js';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -28451,7 +28451,7 @@ var TopPost = function (_Component) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_querystring__ = __webpack_require__(64);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_querystring___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_querystring__);
-var _jsxFileName = '/home/xuanhuyjs/Desktop/ssr-route/src/shared/components/Group/listGroup.js';
+var _jsxFileName = '/home/dendo/Desktop/ssr-route/src/shared/components/Group/listGroup.js';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -28565,7 +28565,7 @@ var listGroup = function (_Component) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-var _jsxFileName = "/home/xuanhuyjs/Desktop/ssr-route/src/shared/components/Group/Group.js";
+var _jsxFileName = "/home/dendo/Desktop/ssr-route/src/shared/components/Group/Group.js";
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -28679,7 +28679,7 @@ var Group = function (_Component) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_router_dom__ = __webpack_require__(39);
-var _jsxFileName = '/home/xuanhuyjs/Desktop/ssr-route/src/shared/components/Navbar.js';
+var _jsxFileName = '/home/dendo/Desktop/ssr-route/src/shared/components/Navbar.js';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -28837,7 +28837,7 @@ var Navbar = function (_Component) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-var _jsxFileName = "/home/xuanhuyjs/Desktop/ssr-route/src/shared/components/Footer.js";
+var _jsxFileName = "/home/dendo/Desktop/ssr-route/src/shared/components/Footer.js";
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
